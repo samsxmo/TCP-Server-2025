@@ -1,0 +1,36 @@
+import socket
+import json
+
+def run_client(host="127.0.0.1", port=65432):
+    # Opret forbindelse til server
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.connect((host, port))
+
+        # Vælg metode og tal
+        method = input("Vælg metode (Random, Add, Subtract): ")
+        tal1 = int(input("Indtast Tal1: "))
+        tal2 = int(input("Indtast Tal2: "))
+
+        # Pak det ind i JSON
+        request = {
+            "method": method,
+            "Tal1": tal1,
+            "Tal2": tal2
+        }
+
+        # Send request
+        s.sendall(json.dumps(request).encode())
+
+        # Modtag svar
+        response = s.recv(1024).decode()
+        data = json.loads(response)
+
+        # Udskriv resultat
+        print(f"Serverens svar: {data['result']}")
+
+        # Send en luk-besked til serveren (valgfrit, men pænt)
+        s.sendall(json.dumps({"method": "Close"}).encode())
+        print("Forbindelsen lukkes...")
+
+if __name__ == "__main__":
+    run_client()
