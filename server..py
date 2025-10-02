@@ -5,17 +5,17 @@ import random
 def handle_client(conn, addr):
     print(f"[CONNECTED] {addr}")
     try:
-        # Step 1: Modtag kommando (Random, Add, Subtract)
+       
         command = conn.recv(1024).decode().strip()
         print(f"[COMMAND] {command}")
         conn.sendall("Input numbers\n".encode())  # Step 2: Svar
 
-        # Step 3: Modtag 2 tal
+       
         numbers = conn.recv(1024).decode().strip()
         print(f"[NUMBERS] {numbers}")
         tal1, tal2 = map(int, numbers.split())
 
-        # Step 4: Beregn og send resultat
+ 
         if command == "Random":
             result = random.randint(tal1, tal2)
         elif command == "Add":
