@@ -10,11 +10,11 @@ def handle_client(conn, addr):
     """
     print(f"[CONNECTED] {addr}")
     try:
-        # Modtag data fra klient
+        # Data fra klient
         data = conn.recv(1024).decode().strip()
         print(f"[RECEIVED] {data}")
 
-        # Prøv at parse JSON
+        
         try:
             request = json.loads(data)
         except json.JSONDecodeError:
@@ -36,7 +36,7 @@ def handle_client(conn, addr):
         else:
             result = "Unknown method"
 
-        # Send JSON-svar
+        
         response = json.dumps({"result": result})
         conn.sendall(response.encode())
         print(f"[SENT] {response}")
