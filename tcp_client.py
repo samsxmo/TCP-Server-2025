@@ -45,7 +45,7 @@ def handle_client(conn, addr):
         conn.close()
         print(f"[DISCONNECTED] {addr}")
 
-def start_json_server(host="127.0.0.1", port=65432):
+def start_json_server(host="127.0.0.1", port=65431):
     """
     Starter TCP-serveren på valgt host og port.
     Serveren er concurrent (kan håndtere flere klienter samtidigt).
